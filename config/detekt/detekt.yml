@@ -1,0 +1,30 @@
+# Starts from detekt's own defaults (buildUponDefaultConfig = true in the root build script) -
+# everything below only overrides what doesn't fit this project.
+build:
+  maxIssues: 0
+
+style:
+  MagicNumber:
+    # Seed data (SeedData.kt, RawSeedSource.kt) and layout code (QuoteRowLayout, Sparkline) are
+    # legitimately full of specific numeric literals - prices, dp values, pixel math. Flagging
+    # every one of those is noise, not signal, for this codebase.
+    active: false
+  MaxLineLength:
+    maxLineLength: 140
+
+complexity:
+  LongParameterList:
+    functionThreshold: 7 # a few constructors here (MarketViewModel, TradeValidator) are close to the default of 6
+
+naming:
+  MatchingDeclarationName:
+    active: true
+
+comments:
+  # This codebase's comments are deliberately conversational/first-person (see README's note
+  # on development approach) rather than formal KDoc - undocumented-public-class would flag
+  # every file for a style choice, not an actual gap.
+  UndocumentedPublicClass:
+    active: false
+  UndocumentedPublicFunction:
+    active: false
